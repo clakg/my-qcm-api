@@ -22,3 +22,4 @@ app.use('/laundries', laundriesRouter);
 
 
 module.exports = app;
+

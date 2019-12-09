@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
   let query = {};
   if (req.query.search) {
-    query.name = new RegExp(req.query.search, 'i');
+    query.title = new RegExp(req.query.search, 'i');
   }
 
   db.collection('laundries').find(query).count((err, count) => {
@@ -29,7 +29,6 @@ router.get('/:id', (req, res) => {
   const { db } = req.app.locals;
   const { id } = req.params;
   db.collection('laundries').findOne({ _id: new ObjectID(id) },{ $set: req.body },(err, laundry) => res.json(laundry));
-  console.log('laundry')
 });
 
 /*  PUT    /laundries/:id  - Modifier un sujet - pour mettre à jour l'objet ou rajout de questions  */
