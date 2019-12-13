@@ -6,12 +6,12 @@ var ObjectID = require('mongodb').ObjectID;
 router.get('/', function(req, res, next) {
   const { db } = req.app.locals;
   const page = req.query.page || 1;
-  const limit = 6;
+  const limit = 7;
   const skip = (page - 1) * limit;
 
   let query = {};
   if (req.query.search) {
-    query.title = new RegExp(req.query.search, 'i');
+    query.city = new RegExp(req.query.search, 'i');
   }
 
   db.collection('laundries').find(query).count((err, count) => {
