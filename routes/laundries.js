@@ -23,6 +23,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* GET     /laundries/cities - recuperer un sujet par ville dans api Restfull  */
+router.get('/cities', (req, res) => {
+  const { db } = req.app.locals;
+  const { id } = req.params;
+  db.collection('laundries').aggregate([{$group:{_id:"$city",nb_lav:{$sum:1}}}]).toArray((err, cities) => {
+    res.json(cities);
+  });
+});
+
 /* GET     /laundries/:id - recuperer un sujet dans api Restfull  */
 
 router.get('/:id', (req, res) => {
@@ -30,6 +39,8 @@ router.get('/:id', (req, res) => {
   const { id } = req.params;
   db.collection('laundries').findOne({ _id: new ObjectID(id) },{ $set: req.body },(err, laundry) => res.json(laundry));
 });
+
+  
 
 /*  PUT    /laundries/:id  - Modifier un sujet - pour mettre à jour l'objet ou rajout de questions  */
 
